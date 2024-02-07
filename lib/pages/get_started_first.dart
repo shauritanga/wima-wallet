@@ -5,10 +5,20 @@ class GetStartedFirstPAge extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Column(
+    Size size = MediaQuery.of(context).size;
+    return Column(
       crossAxisAlignment: CrossAxisAlignment.center,
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: [Text("Sajiri wafanya biashara wadogo wadogo"),],
+      children: [
+        SizedBox(height: size.height * 0.12),
+        Image.asset(
+          "assets/img/sme.png",
+          height: 250,
+          width: 250,
+        ),
+        const SizedBox(height: 24),
+        const Text("Sajiri wafanya biashara wadogo wadogo"),
+        const SizedBox(height: 24),
+      ],
     );
   }
 }

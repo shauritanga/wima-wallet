@@ -5,6 +5,7 @@ import 'package:eva_icons_flutter/eva_icons_flutter.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:future_progress_dialog/future_progress_dialog.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:wima_wallet/provider/data.dart';
 
@@ -82,11 +83,17 @@ class _RegistrationScreenState extends ConsumerState<RegistrationScreen> {
     setState(() {
       uploadTask = ref.putFile(file);
     });
-    final snapshot = await uploadTask!.whenComplete(() {});
-    final urlDownload = await snapshot.ref.getDownloadURL();
-    setState(() {
-      imageUrl = urlDownload;
-    });
+    try {
+      print("inafika hapa 1");
+      final snapshot = await uploadTask!.whenComplete(() {});
+      final urlDownload = await snapshot.ref.getDownloadURL();
+      setState(() {
+        imageUrl = urlDownload;
+      });
+    } catch (e) {
+      print(e);
+    }
+    print("inafika hapa 2");
   }
 
   Stream<QuerySnapshot> getRegions() {
@@ -1146,7 +1153,7 @@ class _RegistrationScreenState extends ConsumerState<RegistrationScreen> {
                     onTap: () async {
                       ImagePicker picker = ImagePicker();
                       final pickedImage =
-                          await picker.pickImage(source: ImageSource.gallery);
+                          await picker.pickImage(source: ImageSource.camera);
 
                       final file = File(pickedImage!.path);
                       setState(() {
@@ -1184,85 +1191,110 @@ class _RegistrationScreenState extends ConsumerState<RegistrationScreen> {
                 ),
                 const SizedBox(height: 24),
                 MaterialButton(
-                  onPressed: () async {
-                    if (_formKey.currentState!.validate()) {
-                      _formKey.currentState?.save();
+                  onPressed: isLoading
+                      ? null
+                      : () async {
+                          if (_formKey.currentState!.validate()) {
+                            _formKey.currentState?.save();
 
-                      Map<String, dynamic> data = {
-                        "name": name,
-                        "gender": selectedGender!,
-                        "dob": dob,
-                        "region": selectedRegion,
-                        "district": selectedDistrict,
-                        "ward": ward,
-                        "village": village,
-                        "phone": phone,
-                        "email": email ?? "",
-                        "NIDA": nida ?? "",
-                        "education": selectedEducationLevel!,
-                        "activity": activity,
-                        "like_to_use_bank": likeToUseBank!,
-                        "have_account": haveBankAcountResponse,
-                        "like_loan": selectedLoanResponse,
-                        "bank_near": selecteBankName,
-                        "response_profit_bank": selectedBankProfitResponse,
-                        "open_accunt_challenge": challengeToOpenAccount,
-                        "has_a_group": selectedGroupResponse,
-                        "imageUrl": imageUrl,
-                      };
-                      if (activity.toLowerCase() == "biashara") {
-                        Map<String, dynamic> biasharaObj = {
-                          "business_type": businessType!,
-                          "location": location!,
-                          "is_business_registered":
-                              selectedBusinessRegistration!,
-                          "half_sales": midYearSales!,
-                          "yearl_sales": yearlySales!,
-                        };
+                            Map<String, dynamic> data = {
+                              "name": name,
+                              "gender": selectedGender!,
+                              "dob": dob,
+                              "region": selectedRegion,
+                              "district": selectedDistrict,
+                              "ward": ward,
+                              "village": village,
+                              "phone": phone,
+                              "email": email ?? "",
+                              "NIDA": nida ?? "",
+                              "education": selectedEducationLevel!,
+                              "activity": activity,
+                              "like_to_use_bank": likeToUseBank!,
+                              "have_account": haveBankAcountResponse,
+                              "like_loan": selectedLoanResponse,
+                              "bank_near": selecteBankName,
+                              "response_profit_bank":
+                                  selectedBankProfitResponse,
+                              "open_accunt_challenge": challengeToOpenAccount,
+                              "has_a_group": selectedGroupResponse,
+                              "imageUrl": imageUrl,
+                            };
+                            if (activity.toLowerCase() == "biashara") {
+                              Map<String, dynamic> biasharaObj = {
+                                "business_type": businessType!,
+                                "location": location!,
+                                "is_business_registered":
+                                    selectedBusinessRegistration!,
+                                "half_sales": midYearSales!,
+                                "yearl_sales": yearlySales!,
+                              };
 
-                        if (selectedBusinessRegistration?.toLowerCase() ==
-                            "ndiyo") {
-                          biasharaObj.addAll({"license": businessLicense!});
-                        }
-                        data.addAll(biasharaObj);
-                      } else if (activity.toLowerCase() == "kilimo") {
-                        Map<String, dynamic> kilimoObj = {
-                          "farm_type": farmType!,
-                          "farm_location": location,
-                        };
+                              if (selectedBusinessRegistration?.toLowerCase() ==
+                                  "ndiyo") {
+                                biasharaObj
+                                    .addAll({"license": businessLicense!});
+                              }
+                              data.addAll(biasharaObj);
+                            } else if (activity.toLowerCase() == "kilimo") {
+                              Map<String, dynamic> kilimoObj = {
+                                "farm_type": farmType!,
+                                "farm_location": location,
+                              };
 
-                        data.addAll(kilimoObj);
-                      } else {
-                        Map<String, dynamic> employerObj = {
-                          "employer": employer!,
-                          "office": office!,
-                        };
+                              data.addAll(kilimoObj);
+                            } else {
+                              Map<String, dynamic> employerObj = {
+                                "employer": employer!,
+                                "office": office!,
+                              };
 
-                        data.addAll(employerObj);
-                      }
+                              data.addAll(employerObj);
+                            }
 
-                      if (haveBankAcountResponse?.toLowerCase() == "hapana") {
-                        Map<String, dynamic> wantAccountObj = {
-                          "like_to_have_bank_account":
-                              likeHavingBankAccountResponse,
-                        };
-                        data.addAll(wantAccountObj);
-                      }
+                            if (haveBankAcountResponse?.toLowerCase() ==
+                                "hapana") {
+                              Map<String, dynamic> wantAccountObj = {
+                                "like_to_have_bank_account":
+                                    likeHavingBankAccountResponse,
+                              };
+                              data.addAll(wantAccountObj);
+                            }
 
-                      if (selectedGroupResponse?.toLowerCase() == "ndiyo") {
-                        Map<String, dynamic> groupObj = {
-                          "group_name": groupName,
-                          "group_like_loan": selectedGroupLoanResponse,
-                          "total_members": totalNumberOfMembers,
-                          "service_used": selectedService,
-                          "like_money_education":
-                              selectedMoneyEducationResponse,
-                        };
-                        data.addAll(groupObj);
-                      }
-                      print(data);
-                    }
-                  },
+                            if (selectedGroupResponse?.toLowerCase() ==
+                                "ndiyo") {
+                              Map<String, dynamic> groupObj = {
+                                "group_name": groupName,
+                                "group_like_loan": selectedGroupLoanResponse,
+                                "total_members": totalNumberOfMembers,
+                                "service_used": selectedService,
+                                "like_money_education":
+                                    selectedMoneyEducationResponse,
+                              };
+                              data.addAll(groupObj);
+                            }
+
+                            final result = await showDialog(
+                              context: context,
+                              builder: (context) => FutureProgressDialog(
+                                ref.read(dataProvider).addData(data),
+                                message: const Text("Loading..."),
+                              ),
+                            );
+                            if (result) {
+                              // ignore: use_build_context_synchronously
+                              return Navigator.of(context).pop();
+                            }
+                            // ignore: use_build_context_synchronously
+                            ScaffoldMessenger.of(context).showSnackBar(
+                              const SnackBar(
+                                content: Text(
+                                    "Usajiri umeshindikana, angalia kama una mtandao"),
+                              ),
+                            );
+                          }
+                        },
+                  disabledColor: Colors.grey,
                   height: 56,
                   color: const Color(0xff102d61),
                   minWidth: size.width,

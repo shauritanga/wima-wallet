@@ -19,8 +19,9 @@ class DetailsScreen extends StatelessWidget {
             Image.network(
               "${person['imageUrl']}",
               scale: 1,
-              height: 450,
+              height: 290,
               width: double.infinity,
+              fit: BoxFit.cover,
             ),
             Padding(
               padding: const EdgeInsets.all(16),

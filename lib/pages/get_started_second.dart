@@ -5,11 +5,19 @@ class GetStartedScondScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Column(
+    Size size = MediaQuery.of(context).size;
+    return Column(
       crossAxisAlignment: CrossAxisAlignment.center,
-      mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        Text("Pata taarifa za wafanya biashara wenye akaunti za bank"),
+        SizedBox(height: size.height * 0.12),
+        Image.asset(
+          "assets/img/bank.png",
+          width: 250,
+          height: 250,
+        ),
+        const SizedBox(height: 24),
+        const Text("Pata taarifa za wafanya biashara wenye akaunti za bank"),
+        const SizedBox(height: 24),
       ],
     );
   }

@@ -14,29 +14,35 @@ class _LoginScreenState extends State<LoginScreen> {
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
     return Scaffold(
-      body: Center(
-        child: MaterialButton(
-          onPressed: () async {
-            Navigator.of(context).pushAndRemoveUntil(
-                MaterialPageRoute(
-                  builder: (_) => const HomeScreen(),
-                ),
-                (route) => false);
-          },
-          height: 56,
-          minWidth: size.width - 48,
-          color: Colors.blue,
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(7),
-          ),
-          child: const Text(
-            "Login with gmail",
-            style: TextStyle(
-              fontSize: 19,
-              color: Colors.white,
+      body: Column(
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          SizedBox(height: size.height * 0.18),
+          Image.asset("assets/img/logo_sme.png"),
+          SizedBox(height: size.height * 0.18, width: double.infinity),
+          MaterialButton(
+            onPressed: () async {
+              Navigator.of(context).pushAndRemoveUntil(
+                  MaterialPageRoute(
+                    builder: (_) => const HomeScreen(),
+                  ),
+                  (route) => false);
+            },
+            height: 56,
+            minWidth: size.width - 48,
+            color: Colors.blue,
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(7),
+            ),
+            child: const Text(
+              "Login with gmail",
+              style: TextStyle(
+                fontSize: 19,
+                color: Colors.white,
+              ),
             ),
           ),
-        ),
+        ],
       ),
     );
   }
