@@ -1,0 +1,62 @@
+{
+  "project_info": {
+    "project_number": "577777388342",
+    "project_id": "wima-wallet",
+    "storage_bucket": "wima-wallet.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:577777388342:android:0e27b9433132ec8ef08197",
+        "android_client_info": {
+          "package_name": "com.example.wima_wallet"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "577777388342-33hufargesinq5p0dgiiunqc7jp52kll.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.wima_wallet",
+            "certificate_hash": "3d4550e2b2203c510281d008cf6276f281affda4"
+          }
+        },
+        {
+          "client_id": "577777388342-i74vqd4l3llhpa18arqlico83fu4ogqd.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.wima_wallet",
+            "certificate_hash": "37d9f28397906bf7baa34c5e6a521cde1e76ab2e"
+          }
+        },
+        {
+          "client_id": "577777388342-ejn8jr0oln4u7cvr32nuj49c218se7jk.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCdOrCBxLNXgYb55lJiJf1GQLji2y7SWQQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "577777388342-ejn8jr0oln4u7cvr32nuj49c218se7jk.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "577777388342-8m4s5kf1hok4coh0fc3akoqq39qb09as.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.wimaWallet"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

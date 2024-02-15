@@ -2,11 +2,14 @@ import 'dart:io';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:eva_icons_flutter/eva_icons_flutter.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:future_progress_dialog/future_progress_dialog.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import 'package:http/http.dart' as http;
 import 'package:wima_wallet/provider/data.dart';
 
 class RegistrationScreen extends ConsumerStatefulWidget {
@@ -84,16 +87,14 @@ class _RegistrationScreenState extends ConsumerState<RegistrationScreen> {
       uploadTask = ref.putFile(file);
     });
     try {
-      print("inafika hapa 1");
       final snapshot = await uploadTask!.whenComplete(() {});
       final urlDownload = await snapshot.ref.getDownloadURL();
       setState(() {
         imageUrl = urlDownload;
       });
     } catch (e) {
-      print(e);
+      throw Exception("Fail to upload to firebase storage");
     }
-    print("inafika hapa 2");
   }
 
   Stream<QuerySnapshot> getRegions() {
@@ -109,7 +110,6 @@ class _RegistrationScreenState extends ConsumerState<RegistrationScreen> {
 
   @override
   void dispose() {
-    // TODO: implement dispose
     _dobController.dispose();
     super.dispose();
   }
@@ -252,7 +252,7 @@ class _RegistrationScreenState extends ConsumerState<RegistrationScreen> {
                           alignedDropdown: true,
                           child: DropdownButton<String>(
                             isExpanded: true,
-                            hint: const Text('Select Region'),
+                            hint: const Text('Chagua Mkoa'),
                             value: selectedRegion,
                             onChanged: (String? value) {
                               setState(() {
@@ -304,7 +304,7 @@ class _RegistrationScreenState extends ConsumerState<RegistrationScreen> {
                           alignedDropdown: true,
                           child: DropdownButton<String>(
                             isExpanded: true,
-                            hint: const Text('Select District'),
+                            hint: const Text('Chagua Wilaya'),
                             value: selectedDistrict,
                             onChanged: (String? value) {
                               setState(() {
@@ -413,6 +413,12 @@ class _RegistrationScreenState extends ConsumerState<RegistrationScreen> {
                     ),
                   ),
                   onSaved: (value) => nida = value,
+                  validator: (value) {
+                    if (value!.length < 20 || value.length > 20) {
+                      "Andika NIDA namba sahihi";
+                    }
+                    return null;
+                  },
                   keyboardType: TextInputType.number,
                 ),
                 const SizedBox(height: 16),
@@ -524,7 +530,7 @@ class _RegistrationScreenState extends ConsumerState<RegistrationScreen> {
                             alignedDropdown: true,
                             child: DropdownButton<String>(
                               isExpanded: true,
-                              hint: const Text('Chagua mwajiri'),
+                              hint: const Text('Chagua Mwajiri'),
                               value: selectedEmployer,
                               onChanged: (String? value) {
                                 setState(() {
@@ -701,7 +707,7 @@ class _RegistrationScreenState extends ConsumerState<RegistrationScreen> {
                   ],
                 ),
                 const SizedBox(height: 16),
-                const Text("Je Unapenda kutumia banki?"),
+                const Text("Je Unapenda kutumia benki?"),
                 const SizedBox(height: 8),
                 Container(
                   height: 56,
@@ -735,7 +741,7 @@ class _RegistrationScreenState extends ConsumerState<RegistrationScreen> {
                   ),
                 ),
                 const SizedBox(height: 16),
-                const Text("Je una banki Akaunti?"),
+                const Text("Je una beprint(e);nki Akaunti?"),
                 const SizedBox(height: 8),
                 Container(
                   height: 56,
@@ -774,7 +780,7 @@ class _RegistrationScreenState extends ConsumerState<RegistrationScreen> {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           const SizedBox(height: 16),
-                          const Text("Je ungependa kuwa na akaunti ya banki?"),
+                          const Text("Je ungependa kuwa na akaunti ya benki?"),
                           const SizedBox(height: 8),
                           Container(
                             height: 56,
@@ -811,7 +817,7 @@ class _RegistrationScreenState extends ConsumerState<RegistrationScreen> {
                       )
                     : const SizedBox(),
                 const SizedBox(height: 16),
-                const Text("Je Kuna Bank gani mitaa hii?"),
+                const Text("Je Kuna benki gani mitaa hii?"),
                 const SizedBox(height: 8),
                 Container(
                   height: 56,
@@ -878,7 +884,7 @@ class _RegistrationScreenState extends ConsumerState<RegistrationScreen> {
                 ),
                 const SizedBox(height: 16),
                 const Text(
-                    "Je umewahi kukutana na changamoto kufungua akaunti ya Bank?"),
+                    "Je umewahi kukutana na changamoto kufungua akaunti ya benki?"),
                 const SizedBox(height: 8),
                 TextFormField(
                   decoration: InputDecoration(
@@ -888,10 +894,10 @@ class _RegistrationScreenState extends ConsumerState<RegistrationScreen> {
                     ),
                   ),
                   onSaved: (value) => challengeToOpenAccount = value!,
-                  keyboardType: TextInputType.number,
+                  keyboardType: TextInputType.text,
                 ),
                 const SizedBox(height: 16),
-                const Text("Je unajua faida za kuwa na Bank akaunti?"),
+                const Text("Je unajua faida za kuwa na akaunti ya benki?"),
                 const SizedBox(height: 8),
                 Container(
                   height: 56,
@@ -1145,7 +1151,7 @@ class _RegistrationScreenState extends ConsumerState<RegistrationScreen> {
                       )
                     : const SizedBox(),
                 const SizedBox(height: 16),
-                const Text("Picha yako"),
+                const Text("Picha"),
                 const SizedBox(height: 10),
                 Align(
                   alignment: Alignment.center,
@@ -1196,8 +1202,14 @@ class _RegistrationScreenState extends ConsumerState<RegistrationScreen> {
                       : () async {
                           if (_formKey.currentState!.validate()) {
                             _formKey.currentState?.save();
+                            // final url = Uri.https(
+                            //     'ors.brela.go.tz', '/um/load/load_nida');
 
+                            // final response =
+                            //     await http.post(url, body: {'NIN': nida});
+                            // print("NIDA RESPONSE $response");
                             Map<String, dynamic> data = {
+                              "userId": FirebaseAuth.instance.currentUser?.uid,
                               "name": name,
                               "gender": selectedGender!,
                               "dob": dob,
@@ -1278,10 +1290,16 @@ class _RegistrationScreenState extends ConsumerState<RegistrationScreen> {
                               context: context,
                               builder: (context) => FutureProgressDialog(
                                 ref.read(dataProvider).addData(data),
-                                message: const Text("Loading..."),
+                                message: const Text("Inapakia..."),
                               ),
                             );
                             if (result) {
+                              // ignore: use_build_context_synchronously
+                              ScaffoldMessenger.of(context).showSnackBar(
+                                const SnackBar(
+                                  content: Text("Usajiri umekamilika"),
+                                ),
+                              );
                               // ignore: use_build_context_synchronously
                               return Navigator.of(context).pop();
                             }

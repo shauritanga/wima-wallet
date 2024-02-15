@@ -4,6 +4,7 @@ class Dashboard {
   final int total;
   final int account;
   final int loan;
+  final int youth;
 
   Dashboard({
     required this.women,
@@ -11,5 +12,6 @@ class Dashboard {
     required this.total,
     required this.account,
     required this.loan,
+    required this.youth,
   });
 }

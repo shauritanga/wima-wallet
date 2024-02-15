@@ -2,11 +2,11 @@ name: wima_wallet
 description: "A KYC project for bussiness women."
 # The following line prevents the package from being accidentally published to
 # pub.dev using `flutter pub publish`. This is preferred for private packages.
-publish_to: 'none' # Remove this line if you wish to publish to pub.dev
+publish_to: "none" # Remove this line if you wish to publish to pub.dev
 version: 1.0.0+1
 
 environment:
-  sdk: '>=3.2.2 <4.0.0'
+  sdk: ">=3.2.2 <4.0.0"
 dependencies:
   flutter:
     sdk: flutter
@@ -16,9 +16,7 @@ dependencies:
   cloud_firestore: ^4.15.0
   image_picker: ^1.0.7
   intl: ^0.19.0
-  sign_in_with_apple: ^5.0.0
   google_sign_in: ^6.2.1
-  http: ^1.2.0
   shared_preferences: ^2.2.2
   eva_icons_flutter: ^3.1.0
   firebase_storage: ^11.6.4
@@ -26,6 +24,9 @@ dependencies:
   loading_indicator: ^3.1.1
   future_progress_dialog: ^0.2.0
   cached_network_image: ^3.3.1
+  firebase_analytics: ^10.8.5
+  carousel_slider: ^4.2.1
+  http: ^1.2.0
 
 dev_dependencies:
   flutter_test:
@@ -45,7 +46,6 @@ dev_dependencies:
 
 # The following section is specific to Flutter packages.
 flutter:
-
   # The following line ensures that the Material Icons font is
   # included with your application, so that you can use the icons in
   # the material Icons class.

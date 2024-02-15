@@ -32,16 +32,17 @@ class CustomCard extends StatelessWidget {
       child: Container(
         padding: const EdgeInsets.all(16),
         width: double.infinity,
-        height: 230,
         decoration: BoxDecoration(
           color: color,
+          border: const Border(
+              left: BorderSide(width: 5, color: Color(0xff102d61))),
           borderRadius: BorderRadius.circular(7),
           boxShadow: const [
             BoxShadow(
-              offset: Offset(1, 2),
+              offset: Offset(0.5, 1),
               color: Color.fromARGB(255, 206, 206, 206),
-              blurRadius: 5,
-              spreadRadius: 3,
+              blurRadius: 3,
+              spreadRadius: 1,
             ),
           ],
         ),
@@ -51,8 +52,8 @@ class CustomCard extends StatelessWidget {
             Row(
               children: [
                 Container(
-                  height: 40,
-                  width: 40,
+                  height: 25,
+                  width: 25,
                   decoration: BoxDecoration(
                     color: iconBackgroundColor,
                     borderRadius: BorderRadius.circular(20),
@@ -61,6 +62,7 @@ class CustomCard extends StatelessWidget {
                   child: Icon(
                     icon,
                     color: iconColor,
+                    size: 10,
                   ),
                 ),
                 const SizedBox(width: 8),
@@ -70,12 +72,12 @@ class CustomCard extends StatelessWidget {
                 )
               ],
             ),
-            const SizedBox(height: 16),
+            const SizedBox(height: 8),
             Text(
               title ?? "",
               style: titleStyle,
             ),
-            const SizedBox(height: 16),
+            const SizedBox(height: 4),
             value,
           ],
         ),

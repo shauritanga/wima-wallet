@@ -9,6 +9,7 @@ class DetailsScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    DateTime today = DateTime.now();
     return Scaffold(
       appBar: AppBar(
         title: Text(" Taarifa za ${person['name']}"),
@@ -68,7 +69,8 @@ class DetailsScreen extends StatelessWidget {
                             DataRow(
                               cells: [
                                 const DataCell(Text("Umri")),
-                                DataCell(Text("${person['dob']}")),
+                                DataCell(Text(
+                                    "${(today.year - DateTime.parse(person['dob']).year)} years")),
                               ],
                             ),
                             DataRow(
@@ -344,10 +346,12 @@ class DetailsScreen extends StatelessWidget {
                               cells: [
                                 const DataCell(
                                     Text("Amesajiriwa kwenye vikundi")),
-                                DataCell(Text("${person['hasAgroup']}")),
+                                DataCell(Text("${person['has_a_group']}")),
                               ],
                             ),
-                            if (person['hasAgroup'].toString().toLowerCase() ==
+                            if (person['has_a_group']
+                                    .toString()
+                                    .toLowerCase() ==
                                 "ndiyo")
                               DataRow(
                                 cells: [
