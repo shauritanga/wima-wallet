@@ -55,7 +55,7 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
         }
 
         // // Check if age is between 18 and 40
-        return age >= 13 && age <= 40;
+        return age >= 18 && age <= 40;
         // Increment the user count
         //return true;
       }).toList();
@@ -191,7 +191,7 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
                             ],
                           ),
                           onTap: () {},
-                          title: "Waliosajiriwa",
+                          title: "Walio sajiriwa",
                           titleStyle: const TextStyle(),
                           icon: EvaIcons.edit2Outline,
                           iconBackgroundColor: Colors.white,

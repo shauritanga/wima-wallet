@@ -63,7 +63,7 @@ class _ProfileSetupScreenState extends ConsumerState<ProfileSetupScreen> {
                 ),
                 onSaved: (value) => phone = value!,
                 validator: (value) {
-                  String pattern = r'^[+255|0]+[6|7][1-9]{8}$';
+                  String pattern = r'^[+255|0]+[6|7]\d{8}$';
                   RegExp regExp = RegExp(pattern);
                   if (value!.isEmpty) {
                     return "Jaza namba ya simu";

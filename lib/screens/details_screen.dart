@@ -70,7 +70,7 @@ class DetailsScreen extends StatelessWidget {
                               cells: [
                                 const DataCell(Text("Umri")),
                                 DataCell(Text(
-                                    "${(today.year - DateTime.parse(person['dob']).year)} years")),
+                                    " Miaka ${(today.year - DateTime.parse(person['dob']).year)}")),
                               ],
                             ),
                             DataRow(

@@ -8,8 +8,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:future_progress_dialog/future_progress_dialog.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:shared_preferences/shared_preferences.dart';
-import 'package:http/http.dart' as http;
+
 import 'package:wima_wallet/provider/data.dart';
 
 class RegistrationScreen extends ConsumerStatefulWidget {
@@ -373,7 +372,7 @@ class _RegistrationScreenState extends ConsumerState<RegistrationScreen> {
                   ),
                   onSaved: (value) => phone = value!,
                   validator: (value) {
-                    String pattern = r'^[+255|0]+[6|7][1-9]{8}$';
+                    String pattern = r'^[+255|0]+[6|7]\d{8}$';
                     RegExp regExp = RegExp(pattern);
                     if (value!.isEmpty) {
                       return "Jaza namba ya simu";
@@ -741,7 +740,7 @@ class _RegistrationScreenState extends ConsumerState<RegistrationScreen> {
                   ),
                 ),
                 const SizedBox(height: 16),
-                const Text("Je una beprint(e);nki Akaunti?"),
+                const Text("Je, una Akaunti ya Benki?"),
                 const SizedBox(height: 8),
                 Container(
                   height: 56,

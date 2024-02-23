@@ -26,7 +26,7 @@ class _GetStaredScreenState extends State<GetStaredScreen> {
           GetStartedFirstPAge(
             currentIndex: currentPage,
             imageUrl: "assets/img/sme.png",
-            message: "Sajiri wafanyabiashara wadogo",
+            message: "Sajili wafanyabiashara wadogo",
           ),
           GetStartedFirstPAge(
             currentIndex: currentPage,

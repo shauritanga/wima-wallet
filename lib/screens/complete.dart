@@ -1,3 +1,5 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:wima_wallet/screens/profile_setup.dart';
@@ -11,13 +13,16 @@ class CompletedRegistration extends StatefulWidget {
 }
 
 class _CompletedRegistrationState extends State<CompletedRegistration> {
-  late bool _hasCompletedRegistration;
+  bool? _hasCompletedRegistration;
 
-  Future<void> completedRegistration() async {
-    SharedPreferences preferences = await SharedPreferences.getInstance();
-    final completed = preferences.getBool('completedRegistration');
-    print(completed);
-    if (completed != null) {
+  Future completedRegistration() async {
+    FirebaseFirestore firestore = FirebaseFirestore.instance;
+    final response = await firestore
+        .collection("users")
+        .where("email", isEqualTo: FirebaseAuth.instance.currentUser?.email)
+        .get();
+
+    if (response.docs.isNotEmpty) {
       setState(() {
         _hasCompletedRegistration = true;
       });
@@ -36,11 +41,12 @@ class _CompletedRegistrationState extends State<CompletedRegistration> {
 
   @override
   Widget build(BuildContext context) {
-    print(_hasCompletedRegistration);
     return Scaffold(
-      body: _hasCompletedRegistration
-          ? const RegistrationScreen()
-          : const ProfileSetupScreen(),
+      body: _hasCompletedRegistration == null
+          ? const Center(child: CircularProgressIndicator())
+          : (_hasCompletedRegistration == true)
+              ? const RegistrationScreen()
+              : const ProfileSetupScreen(),
     );
   }
 }
