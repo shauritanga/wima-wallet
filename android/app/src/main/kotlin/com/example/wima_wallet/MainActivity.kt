@@ -1,4 +1,4 @@
-package com.example.wima_wallet
+package tz.co.wima.wima_wallet
 
 import io.flutter.embedding.android.FlutterActivity
 
