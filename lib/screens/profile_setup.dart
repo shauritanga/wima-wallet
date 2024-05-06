@@ -39,7 +39,6 @@ class _ProfileSetupScreenState extends ConsumerState<ProfileSetupScreen> {
               const Text("Jaza taarifa zako za msingi kabla ya kuendelea"),
               const SizedBox(height: 16),
               TextFormField(
-                enabled: false,
                 initialValue: user?.displayName,
                 decoration: InputDecoration(
                   hintText: "Jina kamili",

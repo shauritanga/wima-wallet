@@ -23,13 +23,14 @@ class LoginScreen extends ConsumerWidget {
                 // ignore: use_build_context_synchronously
                 ScaffoldMessenger.of(context).showSnackBar(
                     const SnackBar(content: Text("Kuingia kumeshindwa")));
-              }
+              } else{
               // ignore: use_build_context_synchronously
               Navigator.of(context).pushAndRemoveUntil(
                   MaterialPageRoute(
                     builder: (_) => const HomeScreen(),
                   ),
                   (route) => false);
+              }
             },
             height: 56,
             minWidth: size.width - 48,

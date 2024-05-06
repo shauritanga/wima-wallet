@@ -7,31 +7,30 @@
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:577777388342:android:0e27b9433132ec8ef08197",
+        "mobilesdk_app_id": "1:577777388342:android:7fb6bdbbe44f4827f08197",
         "android_client_info": {
           "package_name": "tz.co.wima.wima_wallet"
         }
       },
       "oauth_client": [
         {
-          "client_id": "577777388342-33hufargesinq5p0dgiiunqc7jp52kll.apps.googleusercontent.com",
+          "client_id": "577777388342-16lcr76keblhuil6e0cmmtf7es5mto96.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
             "package_name": "tz.co.wima.wima_wallet",
-            "certificate_hash": "3d4550e2b2203c510281d008cf6276f281affda4"
+            "certificate_hash": "939844f4796e6637f4449d53683bb5d1db7ffc49"
           }
         },
         {
-          "client_id": "577777388342-i74vqd4l3llhpa18arqlico83fu4ogqd.apps.googleusercontent.com",
+          "client_id": "577777388342-vr9jsqo5e6rqh4f26m3d7nue5gu4pu46.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
             "package_name": "tz.co.wima.wima_wallet",
-            "certificate_hash": "37d9f28397906bf7baa34c5e6a521cde1e76ab2e"
+            "certificate_hash": "2a2cf60082c9619240437963324d53611bc3fa74"
           }
-        },
-        {
-          "client_id": "577777388342-ejn8jr0oln4u7cvr32nuj49c218se7jk.apps.googleusercontent.com",
-          "client_type": 3
+        },{
+          "client_id":"577777388342-66fimpljuddegbjfkb450snfafghp1kj.apps.googleusercontent.com",
+          "client_type":3
         }
       ],
       "api_key": [
@@ -41,19 +40,7 @@
       ],
       "services": {
         "appinvite_service": {
-          "other_platform_oauth_client": [
-            {
-              "client_id": "577777388342-ejn8jr0oln4u7cvr32nuj49c218se7jk.apps.googleusercontent.com",
-              "client_type": 3
-            },
-            {
-              "client_id": "577777388342-8m4s5kf1hok4coh0fc3akoqq39qb09as.apps.googleusercontent.com",
-              "client_type": 2,
-              "ios_info": {
-                "bundle_id": "tz.co.wima.wimaWallet"
-              }
-            }
-          ]
+          "other_platform_oauth_client": []
         }
       }
     }

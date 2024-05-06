@@ -6,7 +6,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:wima_wallet/models/dashboard.dart';
 import 'package:wima_wallet/screens/complete.dart';
-import 'package:wima_wallet/screens/registration.dart';
 import 'package:wima_wallet/widgets/custom_card.dart';
 import 'package:wima_wallet/widgets/custom_drawer.dart';
 
@@ -19,6 +18,7 @@ class HomeScreen extends ConsumerStatefulWidget {
 
 class _HomeScreenState extends ConsumerState<HomeScreen> {
   User? user = FirebaseAuth.instance.currentUser;
+
   Stream<Dashboard> getData() {
     final firestore = FirebaseFirestore.instance;
     final doc = firestore
@@ -86,6 +86,7 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
     double bottomBarHeight = MediaQuery.of(context).viewPadding.top;
     Size size = MediaQuery.of(context).size;
     //final asyncValue = ref.watch(dataSummaryStreamProvider);
+    print(user);
 
     return StreamBuilder(
       stream: getData(),
